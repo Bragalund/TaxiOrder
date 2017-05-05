@@ -7,8 +7,15 @@
     android:background="@drawable/taxibackground"
     android:scaleType="centerCrop"
     tools:context="com.example.bragalund.taxiorder.MainActivity"
-    android:onClick="startOrder">
+    >
 
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="startOrder"
+        android:alpha="0"/>
 
     <TextView
         android:id="@+id/firstTextView"
@@ -20,6 +27,5 @@
         android:textAlignment="center"
         android:textColor="@color/yellow"
         android:textSize="30sp" />
-
 
 </FrameLayout>

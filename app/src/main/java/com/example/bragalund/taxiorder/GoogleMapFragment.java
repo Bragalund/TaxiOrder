@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+
+import static com.example.bragalund.taxiorder.R.id.map;
 
 public class GoogleMapFragment extends Fragment
         implements OnMapReadyCallback {
@@ -24,7 +27,7 @@ public class GoogleMapFragment extends Fragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        com.google.android.gms.maps.MapFragment fragment = (com.google.android.gms.maps.MapFragment)getChildFragmentManager().findFragmentById(R.id.map);
+        MapFragment fragment = (com.google.android.gms.maps.MapFragment)getChildFragmentManager().findFragmentById(map);
         fragment.getMapAsync(this);
     }
 
