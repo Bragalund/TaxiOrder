@@ -3,6 +3,7 @@ package com.example.bragalund.taxiorder;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         animator.startAnimation();
     }
 
-    public void startOrder() {
+    public void startOrder(View v) {
         Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
     }
