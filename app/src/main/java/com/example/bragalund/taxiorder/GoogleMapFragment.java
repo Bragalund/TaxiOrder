@@ -33,6 +33,7 @@ public class GoogleMapFragment extends Fragment
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
+        //should be filled with some data to spawn view to oslo.
+        //It should also show where your current position is.
     }
 }

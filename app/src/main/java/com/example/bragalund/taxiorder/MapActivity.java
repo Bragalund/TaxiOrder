@@ -7,16 +7,12 @@ import android.os.Bundle;
 
 public class MapActivity extends Activity{
 
-    private FragmentManager fragmentManager;
-    private FragmentTransaction transaction;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_activity);
-        fragmentManager = getFragmentManager();
-        transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.map, new GoogleMapFragment()).commit();
-        transaction.commit();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.my_container, new GoogleMapFragment()).commit();
     }
 }
