@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!-- this is where the Place Autocomplete is loaded -->
     <FrameLayout
         android:id="@+id/top_fragment_container"
         android:layout_width="match_parent"

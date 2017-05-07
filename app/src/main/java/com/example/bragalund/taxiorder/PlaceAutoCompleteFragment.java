@@ -12,10 +12,13 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.model.LatLng;
 
 import static com.google.android.gms.wearable.DataMap.TAG;
 
 public class PlaceAutoCompleteFragment extends Fragment{
+
+    private static String PATIENT_LAT, PATIENT_LON;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,8 +35,9 @@ public class PlaceAutoCompleteFragment extends Fragment{
 
             @Override
             public void onPlaceSelected(Place place) {
-                Log.i(TAG, "Place: " + place.getName());
                 Log.i(TAG, "Place Selected: " + place.getName() + "  " + place.getLatLng());
+               //TODO denne metoden kjøres når brukeren trykker på et sted som har blitt foreslått av Place AutoComplete-Fragmentet.
+                //newInstance(place.getLatLng());
             }
 
             @Override
@@ -42,5 +46,20 @@ public class PlaceAutoCompleteFragment extends Fragment{
             }
         });
     }
+
+
+    //TODO Finn ut av hvordan informasjon om langitude og longitude kan sendes fra dette fragmentet til GoogleMapFragment
+    //TODO Det gjør at man kan tilpasse kartet utifra hvilke addresse personen ønsker å dra til
+    public static PlaceAutocompleteFragment newInstance(LatLng latLng){
+        PlaceAutocompleteFragment fragment = new PlaceAutocompleteFragment();
+        Bundle bundle = new Bundle();
+        double x = latLng.latitude;
+        double y = latLng.longitude;
+        bundle.putDouble(PATIENT_LAT, x);
+        bundle.putDouble(PATIENT_LON, y);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
 
 }

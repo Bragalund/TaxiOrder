@@ -134,4 +134,10 @@ public class GoogleMapFragment extends Fragment
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+
+
+    public void addNewMarkerToMap(LatLng latLng){
+        mMap.addMarker(new MarkerOptions().position(latLng).title("New destination"));
+    }
 }
