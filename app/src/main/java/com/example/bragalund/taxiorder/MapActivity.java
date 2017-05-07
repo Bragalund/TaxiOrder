@@ -13,6 +13,12 @@ public class MapActivity extends Activity{
         setContentView(R.layout.map_activity);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.my_container, new GoogleMapFragment()).commit();
+
+        //Loads the google maps-fragment into the gmaps_fragment_container
+        transaction.replace(R.id.gmaps_fragment_container, new GoogleMapFragment()).commit();
+
+        transaction = fragmentManager.beginTransaction();
+        //Loads the address form
+        transaction.replace(R.id.bottom_fragment_container, new AddressFormFragment()).commit();
     }
 }

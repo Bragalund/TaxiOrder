@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/yellow"
+        android:headerAmPmTextAppearance="@color/Violet"
+        android:headerBackground="@color/yellow"
+        android:headerTimeTextAppearance="@color/Violet"
+        android:numbersBackgroundColor="@color/orange"
+        android:numbersInnerTextColor="@color/yellow"
+        android:numbersSelectorColor="@color/yellow"
+        android:numbersTextColor="@color/Violet" />
+</FrameLayout>
