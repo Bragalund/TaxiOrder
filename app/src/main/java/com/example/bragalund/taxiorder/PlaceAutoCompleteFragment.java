@@ -16,36 +16,31 @@ import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import static com.google.android.gms.wearable.DataMap.TAG;
 
 public class PlaceAutoCompleteFragment extends Fragment{
-    PlaceAutocompleteFragment autocompleteFragment;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        autocompleteFragment = (PlaceAutocompleteFragment)
-                getActivity().getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_place_autocomplete, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getChildFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
 
             @Override
             public void onPlaceSelected(Place place) {
-                // TODO: Get info about the selected place.
                 Log.i(TAG, "Place: " + place.getName());
                 Log.i(TAG, "Place Selected: " + place.getName() + "  " + place.getLatLng());
-
-                double workLatitude = place.getLatLng().latitude;
-                double workLongitude = place.getLatLng().longitude;
-
-                //Over we can get the address, rating, price level,etc.
-
             }
 
             @Override
             public void onError(Status status) {
-                // TODO: Handle the error.
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
-        return inflater.inflate(R.layout.fragment_place_autocomplete, container, false);
     }
 
 }

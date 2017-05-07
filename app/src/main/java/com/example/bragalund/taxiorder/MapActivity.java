@@ -21,7 +21,4 @@ public class MapActivity extends Activity {
         //Loads the address form
         transaction.replace(R.id.top_fragment_container, new PlaceAutoCompleteFragment()).commit();
     }
-
-
-
 }
