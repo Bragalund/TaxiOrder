@@ -5,7 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 
-public class MapActivity extends Activity{
+public class MapActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,11 +14,14 @@ public class MapActivity extends Activity{
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        //Loads the google maps-fragment into the gmaps_fragment_container
+        //Loads the google maps-mMapFragment into the gmaps_fragment_container
         transaction.replace(R.id.gmaps_fragment_container, new GoogleMapFragment()).commit();
 
         transaction = fragmentManager.beginTransaction();
         //Loads the address form
-        transaction.replace(R.id.bottom_fragment_container, new AddressFormFragment()).commit();
+        transaction.replace(R.id.top_fragment_container, new PlaceAutoCompleteFragment()).commit();
     }
+
+
+
 }

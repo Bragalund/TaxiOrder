@@ -8,4 +8,5 @@
     <color name="red">#C70039</color>
     <color name="orange">#FF5733</color>
     <color name="yellow">#FFC300</color>
+    <color name="black">#000000</color>
 </resources>

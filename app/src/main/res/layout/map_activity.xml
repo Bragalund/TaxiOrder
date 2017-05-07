@@ -5,22 +5,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- this is the top of the screen, where the gmaps_fragment is loaded -->
+    <FrameLayout
+        android:id="@+id/top_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+    </FrameLayout>
+
+    <!-- this is where fragment_gmaps is loaded -->
     <FrameLayout
         android:id="@+id/gmaps_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="0.2">
     </FrameLayout>
 
-    <!-- this is the bottom of the screen -->
-    <FrameLayout
-        android:id="@+id/bottom_fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
 
-    </FrameLayout>
 
 
 </LinearLayout>
