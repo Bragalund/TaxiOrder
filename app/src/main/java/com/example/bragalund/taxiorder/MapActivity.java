@@ -5,7 +5,9 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 
-public class MapActivity extends Activity {
+import com.google.android.gms.maps.model.LatLng;
+
+public class MapActivity extends Activity implements Communicator{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +24,10 @@ public class MapActivity extends Activity {
         transaction.replace(R.id.top_fragment_container, new PlaceAutoCompleteFragment()).commit();
     }
 
-
+    @Override
+    public void respond(LatLng latLng) {
+        FragmentManager fragmentManager = getFragmentManager();
+        GoogleMapFragment map = (GoogleMapFragment) fragmentManager.findFragmentById(R.id.map);
+        map.addNewMarkerToMap(latLng);
+    }
 }

@@ -19,6 +19,7 @@ import static com.google.android.gms.wearable.DataMap.TAG;
 public class PlaceAutoCompleteFragment extends Fragment{
 
     private static String PATIENT_LAT, PATIENT_LON;
+    Communicator communicator;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class PlaceAutoCompleteFragment extends Fragment{
                 Log.i(TAG, "Place Selected: " + place.getName() + "  " + place.getLatLng());
                //TODO denne metoden kjøres når brukeren trykker på et sted som har blitt foreslått av Place AutoComplete-Fragmentet.
                 //newInstance(place.getLatLng());
+                communicator.respond(place.getLatLng());
             }
 
             @Override
@@ -47,6 +49,11 @@ public class PlaceAutoCompleteFragment extends Fragment{
         });
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        communicator= (Communicator) getActivity();
+    }
 
     //TODO Finn ut av hvordan informasjon om langitude og longitude kan sendes fra dette fragmentet til GoogleMapFragment
     //TODO Det gjør at man kan tilpasse kartet utifra hvilke addresse personen ønsker å dra til
