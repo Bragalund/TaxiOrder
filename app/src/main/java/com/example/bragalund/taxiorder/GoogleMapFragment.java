@@ -24,16 +24,15 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import static com.example.bragalund.taxiorder.R.id.map;
-
-// this code is inspired by: http://stackoverflow.com/questions/36659038/get-current-location-in-onmapready-in-android-using-google-locations-api
+import static com.example.bragalund.taxiorder.R.id.googleMapFragment;
 
 public class GoogleMapFragment extends Fragment
         implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
     Location mLastLocation;
     MapFragment mMapFragment;
-    GoogleMap mMap;
+    protected GoogleMap mMap;
     GoogleApiClient mGoogleApiClient;
     double lat = 0, lng = 0;
 
@@ -47,7 +46,7 @@ public class GoogleMapFragment extends Fragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         buildGoogleApiClient();
-        mMapFragment = (com.google.android.gms.maps.MapFragment) getChildFragmentManager().findFragmentById(map);
+        mMapFragment = (com.google.android.gms.maps.MapFragment) getChildFragmentManager().findFragmentById(googleMapFragment);
         mMapFragment.getMapAsync(this);
     }
 
@@ -55,28 +54,52 @@ public class GoogleMapFragment extends Fragment
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        //This is just  --> HARDCODED FOR TESTING PURPOSES <--
-        // it is also possible to connect to android emulator with telnet with "telnet localhost 5554" and "geo fix <longitude> <latitude>
-        lat = 59.9142220;
-        lng = 10.7754230;
-        LatLng loc = new LatLng(lat, lng);
-        mMap.addMarker(new MarkerOptions().position(loc).title("You are here!"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc,12));
-        mMap.animateCamera(CameraUpdateFactory.zoomIn());
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
-
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+        //checks permissions...
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            setUpMap();
+        } else {
+            //Launches request to user to give permissions to fine location.
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
-        mMap.setMyLocationEnabled(true);
+    }
+
+    private void setUpMap() {
+        //Checks permissions one more time...
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            System.out.println("Permissions is good... ;) ");
+            LatLng loc = new LatLng(lat, lng);
+            mMap.addMarker(new MarkerOptions().position(loc).title("You are here!"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 12));
+            mMap.animateCamera(CameraUpdateFactory.zoomIn());
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
+            mMap.setMyLocationEnabled(true);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay!
+                    setUpMap();
+                } else {
+                    //The map will load, but it will not zoom onto current location.
+                    //Possible to hardcode hotel latitude and longitude here!
+                    System.out.println("The permission for fine_location was not granted...");
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+            }
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     private void buildGoogleApiClient() {
@@ -90,33 +113,25 @@ public class GoogleMapFragment extends Fragment
 
     @Override
     public void onConnected(Bundle bundle) {
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
-        if (mLastLocation != null) {
-            lat = mLastLocation.getLatitude();
-            lng = mLastLocation.getLongitude();
-            LatLng loc = new LatLng(lat, lng);
-            mMap.addMarker(new MarkerOptions().position(loc).title("New Marker"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc,12));
-            mMap.animateCamera(CameraUpdateFactory.zoomIn());
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                    mGoogleApiClient);
+            if (mLastLocation != null) {
+                lat = mLastLocation.getLatitude();
+                lng = mLastLocation.getLongitude();
+                LatLng loc = new LatLng(lat, lng);
+                mMap.addMarker(new MarkerOptions().position(loc).title("You are here"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 12));
+                mMap.animateCamera(CameraUpdateFactory.zoomIn());
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
+            }
         }
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        Toast.makeText(getContext(), "suspended", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "The connection was suspended.", Toast.LENGTH_LONG).show();
     }
 
     public void onStart() {
@@ -132,12 +147,13 @@ public class GoogleMapFragment extends Fragment
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Toast.makeText(getContext(), "The connection failed", Toast.LENGTH_LONG).show();
+    }
 
+    public void addNewMarkerToMap(double latitude, double longitude) {
+        LatLng latLng = new LatLng(latitude, longitude);
+        mMap.addMarker(new MarkerOptions().position(latLng).title("Destination"));
     }
 
 
-
-    public void addNewMarkerToMap(LatLng latLng){
-        mMap.addMarker(new MarkerOptions().position(latLng).title("New destination"));
-    }
 }
