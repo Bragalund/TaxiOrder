@@ -5,6 +5,8 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 
+import com.google.android.gms.maps.model.LatLng;
+
 public class MapActivity extends Activity implements Communicator{
 
     @Override
@@ -23,8 +25,8 @@ public class MapActivity extends Activity implements Communicator{
     }
 
     @Override
-    public void respond(double latitude, double longitude) {
+    public void respond(LatLng latLng) {
         GoogleMapFragment mapFragment = (GoogleMapFragment) getFragmentManager().findFragmentById(R.id.gmaps_fragment_container);
-        mapFragment.addNewMarkerToMap(latitude, longitude);
+        mapFragment.addNewMarkerToMap(latLng);
     }
 }

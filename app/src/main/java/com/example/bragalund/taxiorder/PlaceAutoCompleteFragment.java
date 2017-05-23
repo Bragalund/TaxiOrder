@@ -37,9 +37,7 @@ public class PlaceAutoCompleteFragment extends Fragment {
             public void onPlaceSelected(Place place) {
                 Log.i(TAG, "Place Selected: " + place.getName() + "  " + place.getLatLng());
                 // Denne metoden kjøres når brukeren trykker på et sted som har blitt foreslått av Place AutoComplete-Fragmentet.
-                double latitude = place.getLatLng().latitude;
-                double longitude = place.getLatLng().longitude;
-                communicator.respond(latitude, longitude);
+                communicator.respond(place.getLatLng());
             }
 
             @Override

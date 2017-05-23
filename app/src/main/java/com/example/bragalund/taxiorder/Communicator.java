@@ -1,7 +1,8 @@
 package com.example.bragalund.taxiorder;
 
 
+import com.google.android.gms.maps.model.LatLng;
 
 public interface Communicator {
-    void respond(double latitude, double longitude);
+    void respond(LatLng latLng);
 }

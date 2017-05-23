@@ -150,8 +150,7 @@ public class GoogleMapFragment extends Fragment
         Toast.makeText(getContext(), "The connection failed", Toast.LENGTH_LONG).show();
     }
 
-    public void addNewMarkerToMap(double latitude, double longitude) {
-        LatLng latLng = new LatLng(latitude, longitude);
+    public void addNewMarkerToMap(LatLng latLng) {
         mMap.addMarker(new MarkerOptions().position(latLng).title("Destination"));
     }
 
