@@ -2,34 +2,32 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/question_route_fragment"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:name="com.example.bragalund.taxiorder.QuestionRouteFragment">
+        android:layout_height="match_parent"
+        android:background="@color/wallet_hint_foreground_holo_light">
 
-        <RelativeLayout
-            android:background="@color/wallet_hint_foreground_holo_light"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-            <Button
-                android:id="@+id/yes_route_fragment_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Yes" />
+        <Button
+            android:id="@+id/yes_route_fragment_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/no_route_fragment_button"
+            android:layout_alignBottom="@+id/no_route_fragment_button"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="65dp"
+            android:text="Yes" />
 
-            <Button
-                android:id="@+id/no_route_fragment_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No" />
-        </RelativeLayout>
-
-
-    </fragment>
-
+        <Button
+            android:id="@+id/no_route_fragment_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="63dp"
+            android:layout_marginTop="12dp"
+            android:text="No" />
+    </RelativeLayout>
 
 
 </FrameLayout>
