@@ -27,6 +27,9 @@ public class MapActivity extends Activity implements Communicator{
     @Override
     public void respond(LatLng latLng) {
         GoogleMapFragment mapFragment = (GoogleMapFragment) getFragmentManager().findFragmentById(R.id.gmaps_fragment_container);
+        mapFragment.removeDestinationMarker();
         mapFragment.addNewMarkerToMap(latLng);
+        mapFragment.zoomOntoTwoMarkers();
+        //TODO replace Place_autocomplete_fragemtn with  QuestionRouteFragment
     }
 }

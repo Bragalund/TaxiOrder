@@ -17,17 +17,25 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
 
 import static com.example.bragalund.taxiorder.R.id.googleMapFragment;
 
 public class GoogleMapFragment extends Fragment
         implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+
+    Marker destinationMarker;
+    Marker currentLocationMarker;
 
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
     Location mLastLocation;
@@ -70,7 +78,7 @@ public class GoogleMapFragment extends Fragment
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             System.out.println("Permissions is good... ;) ");
             LatLng loc = new LatLng(lat, lng);
-            mMap.addMarker(new MarkerOptions().position(loc).title("You are here!"));
+            currentLocationMarker = mMap.addMarker(new MarkerOptions().position(loc).title("You are here!"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 12));
             mMap.animateCamera(CameraUpdateFactory.zoomIn());
@@ -120,7 +128,7 @@ public class GoogleMapFragment extends Fragment
                 lat = mLastLocation.getLatitude();
                 lng = mLastLocation.getLongitude();
                 LatLng loc = new LatLng(lat, lng);
-                mMap.addMarker(new MarkerOptions().position(loc).title("You are here"));
+                currentLocationMarker = mMap.addMarker(new MarkerOptions().position(loc).title("You are here"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 12));
                 mMap.animateCamera(CameraUpdateFactory.zoomIn());
@@ -151,7 +159,30 @@ public class GoogleMapFragment extends Fragment
     }
 
     public void addNewMarkerToMap(LatLng latLng) {
-        mMap.addMarker(new MarkerOptions().position(latLng).title("Destination"));
+        destinationMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Destination"));
+    }
+
+    public void removeDestinationMarker() {
+        if (!(destinationMarker == null)) {
+            destinationMarker.remove();
+        }
+    }
+
+    public void zoomOntoTwoMarkers(){
+        ArrayList<Marker> markers = new ArrayList<>();
+        markers.add(currentLocationMarker);
+        markers.add(destinationMarker);
+
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        for (Marker marker : markers) {
+            builder.include(marker.getPosition());
+        }
+        LatLngBounds bounds = builder.build();
+
+        int padding = 100; // offset from edges of the map in pixels
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+
+        mMap.animateCamera(cameraUpdate);
     }
 
 
