@@ -9,4 +9,7 @@
     <color name="orange">#FF5733</color>
     <color name="yellow">#FFC300</color>
     <color name="black">#000000</color>
+    <color name="googleMapGreen">#bbdaa4</color>
+    <color name="googleMapOrange">#f18d00</color>
+    <color name="googleMapMidDarkBlue">#9bbff4</color>
 </resources>

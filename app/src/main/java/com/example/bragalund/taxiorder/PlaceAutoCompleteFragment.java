@@ -42,16 +42,16 @@ public class PlaceAutoCompleteFragment extends Fragment {
             @Override
             public void onPlaceSelected(Place place) {
                 Log.i(TAG, "Place Selected: " + place.getName() + "  " + place.getLatLng());
+                System.out.println("Trykket paa nytt sted...");
                 // Denne metoden kjøres når brukeren trykker på et sted som har blitt foreslått av Place AutoComplete-Fragmentet.
                 communicator.respond(place.getLatLng());
             }
 
             @Override
             public void onError(Status status) {
+                System.out.println("There was an error when the user pressed the place in the Places Autocomplete-bar");
                 Log.i(TAG, "An error occurred: " + status);
             }
-
-
         });
     }
 
@@ -63,12 +63,15 @@ public class PlaceAutoCompleteFragment extends Fragment {
                 Log.i(TAG, "Place: " + place.getName());
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(getContext(), data);
-                //Fant svar paa loosning...
-                // https://stackoverflow.com/questions/44118233/google-places-api-for-android-network-error
 
-                //Feilmeldingen jeg faar
+                //Errormessage
                 //05-24 19:08:56.188 2356-2714/com.google.android.gms E/AsyncOperation: serviceID=65, operation=AddPlace
                 //OperationException[Status{statusCode=NETWORK_ERROR, resolution=null}]
+
+                //Found the answer...
+                // https://stackoverflow.com/questions/44118233/google-places-api-for-android-network-error
+
+                //Problem was gone the day after. I didnt change anything...
 
                 System.out.println(PlaceAutocomplete.getStatus(getContext(), data));
                 Log.i(TAG, status.getStatusMessage());

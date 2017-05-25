@@ -15,7 +15,7 @@
 
     <!-- this is where fragment_gmaps is loaded -->
     <FrameLayout
-        android:id="@+id/gmaps_fragment_container"
+        android:id="@+id/bottom_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.2">
