@@ -1,6 +1,7 @@
 package com.example.bragalund.taxiorder;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -30,14 +31,20 @@ public class MapActivity extends Activity implements Communicator{
         mapFragment.removeDestinationMarker();
         mapFragment.addNewMarkerToMap(latLng);
         mapFragment.zoomOntoTwoMarkers();
-        //TODO replace Place_autocomplete_fragment with  QuestionRouteFragment
-        changeTopFragmentToQuestionRouteFragment();
-
+        changeTopFragment(new QuestionRouteFragment());
     }
 
-    private void changeTopFragmentToQuestionRouteFragment(){
+    @Override
+    public void changeTopFragment(Fragment fragment){
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.top_fragment_container, new QuestionRouteFragment()).commit();
+        transaction.replace(R.id.top_fragment_container, fragment).commit();
+    }
+
+    @Override
+    public void changeBottomFragment(Fragment fragment){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.bottom_fragment_container, fragment).commit();
     }
 }
