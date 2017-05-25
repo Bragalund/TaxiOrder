@@ -34,7 +34,6 @@ public class MapActivity extends Activity implements Communicator {
 
     @Override
     public void respond(LatLng latLng) {
-        System.out.println("------------- Responded ------------");
         GoogleMapFragment mapFragment = (GoogleMapFragment) getFragmentManager().findFragmentById(R.id.bottom_fragment_container);
         mapFragment.removeDestinationMarker();
         mapFragment.addNewMarkerToMap(latLng);
@@ -46,13 +45,6 @@ public class MapActivity extends Activity implements Communicator {
     public void changeTopFragment(Fragment fragment) {
         transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.top_fragment_container, fragment).commit();
-    }
-
-
-
-
-    public void setCurrentAddressToOrder(String currentAddress) {
-
     }
 
     @Override

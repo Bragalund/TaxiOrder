@@ -3,18 +3,19 @@ package com.example.bragalund.taxiorder.Fragments;
 
 import android.Manifest;
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.bragalund.taxiorder.Activities.MainActivity;
 import com.example.bragalund.taxiorder.R;
 import com.example.bragalund.taxiorder.Util.Communicator;
 import com.google.android.gms.common.ConnectionResult;
@@ -38,7 +39,7 @@ import java.util.ArrayList;
 import static com.example.bragalund.taxiorder.R.id.googleMapFragment;
 
 public class GoogleMapFragment extends Fragment
-        implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener{
+        implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     LocationRequest mLocationRequest;
     Marker destinationMarker;
     Marker currentLocationMarker;
@@ -113,11 +114,16 @@ public class GoogleMapFragment extends Fragment
                     // permission was granted, yay!
                     setUpMap();
                 } else {
+
                     //The map will load, but it will not zoom onto current location.
+
                     //Possible to hardcode hotel latitude and longitude here!
-                    System.out.println("The permission for fine_location was not granted...");
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
+
+                    System.out.println("The permission for fine_location was not granted... :( ");
+
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    startActivity(intent);
+
                 }
             }
             // other 'case' lines to check for other
@@ -139,25 +145,13 @@ public class GoogleMapFragment extends Fragment
 
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(1000);
-        mLocationRequest.setFastestInterval(1000);mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        mLocationRequest.setFastestInterval(1000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);}
-      /*  if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                    mGoogleApiClient);
-            if (mLastLocation != null) {
-                lat = mLastLocation.getLatitude();
-                lng = mLastLocation.getLongitude();
-                LatLng loc = new LatLng(lat, lng);
-                zoomCamera(loc);
-                currentLocationMarker.remove();
-                currentLocationMarker = mMap.addMarker(new MarkerOptions().position(loc).title("You are here"));
-                communicator.setCurrentAddressToOrder();
-            }
-*/
-
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
+    }
 
 
     @Override
@@ -186,7 +180,7 @@ public class GoogleMapFragment extends Fragment
     }
 
     public void removeDestinationMarker() {
-        if (!(destinationMarker == null)) {
+        if (destinationMarker != null) {
             destinationMarker.remove();
         }
     }
@@ -222,12 +216,13 @@ public class GoogleMapFragment extends Fragment
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title("You are here!");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
         currentLocationMarker = mMap.addMarker(markerOptions);
+
 
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+        zoomCamera(latLng);
 
         //stop location updates
         if (mGoogleApiClient != null) {
