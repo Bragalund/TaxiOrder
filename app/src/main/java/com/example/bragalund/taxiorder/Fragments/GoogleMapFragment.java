@@ -9,20 +9,25 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.bragalund.taxiorder.R;
+import com.example.bragalund.taxiorder.Util.Communicator;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -33,11 +38,11 @@ import java.util.ArrayList;
 import static com.example.bragalund.taxiorder.R.id.googleMapFragment;
 
 public class GoogleMapFragment extends Fragment
-        implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-
+        implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener{
+    LocationRequest mLocationRequest;
     Marker destinationMarker;
     Marker currentLocationMarker;
-
+    Communicator communicator;
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
     Location mLastLocation;
     MapFragment mMapFragment;
@@ -85,11 +90,10 @@ public class GoogleMapFragment extends Fragment
             }
             LatLng loc = new LatLng(lat, lng);
             mMap.setMyLocationEnabled(true);
-            mMap.addMarker(new MarkerOptions().position(loc).title("You are here!"));
-            currentLocationMarker = mMap.addMarker(new MarkerOptions().position(loc).title("You are here!"));
             zoomCamera(loc);
         }
     }
+
 
     private void zoomCamera(LatLng loc) {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
@@ -132,7 +136,14 @@ public class GoogleMapFragment extends Fragment
 
     @Override
     public void onConnected(Bundle bundle) {
+
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(1000);
+        mLocationRequest.setFastestInterval(1000);mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);}
+      /*  if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                     mGoogleApiClient);
             if (mLastLocation != null) {
@@ -142,11 +153,12 @@ public class GoogleMapFragment extends Fragment
                 zoomCamera(loc);
                 currentLocationMarker.remove();
                 currentLocationMarker = mMap.addMarker(new MarkerOptions().position(loc).title("You are here"));
+                communicator.setCurrentAddressToOrder();
             }
-
+*/
 
         }
-    }
+
 
     @Override
     public void onConnectionSuspended(int i) {
@@ -198,4 +210,28 @@ public class GoogleMapFragment extends Fragment
     }
 
 
+    @Override
+    public void onLocationChanged(Location location) {
+        mLastLocation = location;
+        if (currentLocationMarker != null) {
+            currentLocationMarker.remove();
+        }
+
+        //Place current location marker
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.title("You are here!");
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+        currentLocationMarker = mMap.addMarker(markerOptions);
+
+        //move map camera
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+
+        //stop location updates
+        if (mGoogleApiClient != null) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        }
+    }
 }

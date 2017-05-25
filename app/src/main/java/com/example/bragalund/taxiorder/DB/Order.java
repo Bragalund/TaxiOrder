@@ -3,27 +3,25 @@ package com.example.bragalund.taxiorder.DB;
 import java.io.Serializable;
 
 public class Order implements Serializable {
-    String orderID;
+    int orderID;
     String currentAddress;
     String destinationAddress;
     int hour;
     int min;
-    String customerPhoneNumber;
 
-    public Order(String orderID, String currentAddress, String destinationAddress, int hour, int min, String customerPhoneNumber) {
+    public Order(int orderID, String currentAddress, String destinationAddress, int hour, int min) {
         this.orderID = orderID;
         this.currentAddress = currentAddress;
         this.destinationAddress = destinationAddress;
         this.hour = hour;
         this.min = min;
-        this.customerPhoneNumber = customerPhoneNumber;
     }
 
-    public String getOrderID() {
+    public int getOrderID() {
         return orderID;
     }
 
-    public void setOrderID(String orderID) {
+    public void setOrderID(int orderID) {
         this.orderID = orderID;
     }
 
@@ -59,11 +57,4 @@ public class Order implements Serializable {
         this.min = min;
     }
 
-    public String getCustomerPhoneNumber() {
-        return customerPhoneNumber;
-    }
-
-    public void setCustomerPhoneNumber(String customerPhoneNumber) {
-        this.customerPhoneNumber = customerPhoneNumber;
-    }
 }

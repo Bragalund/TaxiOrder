@@ -44,6 +44,7 @@ public class PlaceAutoCompleteFragment extends Fragment {
             public void onPlaceSelected(Place place) {
                 Log.i(TAG, "Place Selected: " + place.getName() + "  " + place.getLatLng());
                 System.out.println("-------------------   onPlaceSelected --------------");
+                //communicator.setDestinationAddressToOrder(place.getAddress().toString());
                 communicator.respond(place.getLatLng());
             }
 
@@ -86,9 +87,9 @@ public class PlaceAutoCompleteFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        try{
+        try {
             communicator = (Communicator) context;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
