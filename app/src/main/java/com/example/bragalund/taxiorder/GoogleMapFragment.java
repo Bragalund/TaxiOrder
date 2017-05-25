@@ -61,7 +61,6 @@ public class GoogleMapFragment extends Fragment
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         //checks permissions...
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             setUpMap();
@@ -78,12 +77,13 @@ public class GoogleMapFragment extends Fragment
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             System.out.println("Permissions is good... ;) ");
             LatLng loc = new LatLng(lat, lng);
+            mMap.setMyLocationEnabled(true);
+            mMap.addMarker(new MarkerOptions().position(loc).title("You are here!"));
             currentLocationMarker = mMap.addMarker(new MarkerOptions().position(loc).title("You are here!"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 12));
             mMap.animateCamera(CameraUpdateFactory.zoomIn());
             mMap.animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
-            mMap.setMyLocationEnabled(true);
         }
     }
 
@@ -128,6 +128,7 @@ public class GoogleMapFragment extends Fragment
                 lat = mLastLocation.getLatitude();
                 lng = mLastLocation.getLongitude();
                 LatLng loc = new LatLng(lat, lng);
+                currentLocationMarker.remove();
                 currentLocationMarker = mMap.addMarker(new MarkerOptions().position(loc).title("You are here"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 12));
@@ -177,9 +178,10 @@ public class GoogleMapFragment extends Fragment
         for (Marker marker : markers) {
             builder.include(marker.getPosition());
         }
+
         LatLngBounds bounds = builder.build();
 
-        int padding = 100; // offset from edges of the map in pixels
+        int padding = 100;
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding);
 
         mMap.animateCamera(cameraUpdate);

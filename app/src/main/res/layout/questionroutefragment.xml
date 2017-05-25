@@ -6,7 +6,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/wallet_hint_foreground_holo_light">
+        android:background="@color/place_autocomplete_separator">
 
         <Button
             android:id="@+id/yes_route_fragment_button"

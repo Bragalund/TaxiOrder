@@ -30,6 +30,14 @@ public class MapActivity extends Activity implements Communicator{
         mapFragment.removeDestinationMarker();
         mapFragment.addNewMarkerToMap(latLng);
         mapFragment.zoomOntoTwoMarkers();
-        //TODO replace Place_autocomplete_fragemtn with  QuestionRouteFragment
+        //TODO replace Place_autocomplete_fragment with  QuestionRouteFragment
+        changeTopFragmentToQuestionRouteFragment();
+
+    }
+
+    private void changeTopFragmentToQuestionRouteFragment(){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.top_fragment_container, new QuestionRouteFragment()).commit();
     }
 }
