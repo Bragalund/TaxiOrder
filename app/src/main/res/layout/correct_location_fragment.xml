@@ -18,7 +18,7 @@
             android:layout_marginTop="13dp" />
 
         <Button
-            android:id="@+id/yes_order_taxi_fragment_button"
+            android:id="@+id/yes_correct_location_fragment_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Yes"
@@ -28,13 +28,13 @@
             android:layout_marginStart="61dp" />
 
         <Button
-            android:id="@+id/no_order_taxi_fragment_button"
+            android:id="@+id/no_correct_location_fragment_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="63dp"
+            android:layout_marginEnd="64dp"
             android:text="No"
-            android:layout_alignBaseline="@+id/yes_order_taxi_fragment_button"
-            android:layout_alignBottom="@+id/yes_order_taxi_fragment_button"
+            android:layout_alignBaseline="@+id/yes_correct_location_fragment_button"
+            android:layout_alignBottom="@+id/yes_correct_location_fragment_button"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
 

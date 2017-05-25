@@ -25,8 +25,8 @@ public class CorrectLocationFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        yesButton = (Button) getView().findViewById(R.id.yes_order_taxi_fragment_button);
-        noButton = (Button) getView().findViewById(R.id.no_order_taxi_fragment_button);
+        yesButton = (Button) getView().findViewById(R.id.yes_correct_location_fragment_button);
+        noButton = (Button) getView().findViewById(R.id.no_correct_location_fragment_button);
         yesButton.setOnClickListener(yesButtonOnClickListener);
         noButton.setOnClickListener(noButtonOnClickListener);
     }
@@ -34,7 +34,6 @@ public class CorrectLocationFragment extends Fragment {
     View.OnClickListener noButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            System.out.println("No button was clicked...");
             communicator.changeTopFragment(new PlaceAutocompleteFragment());
         }
     };
@@ -42,9 +41,8 @@ public class CorrectLocationFragment extends Fragment {
     View.OnClickListener yesButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            System.out.println("Yes button was clicked...");
-            //communicator.changeTopFragment();
             communicator.changeBottomFragment(new TimePickerFragment());
+            communicator.changeTopFragment(new OrderTaxiFragment());
         }
     };
 

@@ -27,7 +27,6 @@ public class PlaceAutoCompleteFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        System.out.println("Create the place_autocomplete.");
         return inflater.inflate(R.layout.fragment_place_autocomplete, container, false);
     }
 
@@ -42,8 +41,6 @@ public class PlaceAutoCompleteFragment extends Fragment {
             @Override
             public void onPlaceSelected(Place place) {
                 Log.i(TAG, "Place Selected: " + place.getName() + "  " + place.getLatLng());
-                System.out.println("Trykket paa nytt sted...");
-                // Denne metoden kjøres når brukeren trykker på et sted som har blitt foreslått av Place AutoComplete-Fragmentet.
                 communicator.respond(place.getLatLng());
             }
 
