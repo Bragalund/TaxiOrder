@@ -3,8 +3,11 @@ package com.example.bragalund.taxiorder.Fragments;
 
 import android.Manifest;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -34,7 +37,10 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import static com.example.bragalund.taxiorder.R.id.googleMapFragment;
 
@@ -219,7 +225,6 @@ public class GoogleMapFragment extends Fragment
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
         currentLocationMarker = mMap.addMarker(markerOptions);
 
-
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         zoomCamera(latLng);
@@ -227,6 +232,37 @@ public class GoogleMapFragment extends Fragment
         //stop location updates
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        }
+
+        //Try to guess current address from geo-location
+        String guessedAddress = "";
+        Geocoder geoCoder = new Geocoder(getContext(), Locale.getDefault());
+
+        try {
+            List<Address> addresses =
+                    geoCoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            if (addresses.size() > 0) {
+                for (int i = 0; i < addresses.get(0).getMaxAddressLineIndex(); i++)
+                    guessedAddress += addresses.get(0).getAddressLine(i) + " ";
+            }
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (Exception e2) {
+            e2.printStackTrace();
+        }
+
+        System.out.println("-------- Current Address is: "+guessedAddress+ " ---------------");
+        communicator.setCurrentAddressToOrder(guessedAddress);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            communicator = (Communicator) context;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

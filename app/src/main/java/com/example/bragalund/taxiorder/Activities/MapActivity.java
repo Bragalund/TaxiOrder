@@ -23,6 +23,8 @@ public class MapActivity extends Activity implements Communicator {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_activity);
+        order = new Order(0, "", "", 0, 0);
+
         fragmentManager = getFragmentManager();
 
         transaction = fragmentManager.beginTransaction();
@@ -41,10 +43,31 @@ public class MapActivity extends Activity implements Communicator {
         changeTopFragment(new CorrectLocationFragment());
     }
 
+
     @Override
     public void changeTopFragment(Fragment fragment) {
         transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.top_fragment_container, fragment).commit();
+    }
+
+    @Override
+    public void setDestinationAddressToOrder(String destinationAddress) {
+        order.setDestinationAddress(destinationAddress);
+    }
+
+    @Override
+    public void setCurrentAddressToOrder(String currentAddress) {
+        order.setCurrentAddress(currentAddress);
+    }
+
+    @Override
+    public void setHour(int hour) {
+        order.setHour(hour);
+    }
+
+    @Override
+    public void setMin(int min) {
+        order.setMin(min);
     }
 
     @Override

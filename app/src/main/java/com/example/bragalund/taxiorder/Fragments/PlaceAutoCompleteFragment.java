@@ -43,8 +43,8 @@ public class PlaceAutoCompleteFragment extends Fragment {
             @Override
             public void onPlaceSelected(Place place) {
                 Log.i(TAG, "Place Selected: " + place.getName() + "  " + place.getLatLng());
-                System.out.println("-------------------   onPlaceSelected --------------");
-                //communicator.setDestinationAddressToOrder(place.getAddress().toString());
+                System.out.println("-------------------   Destination address is: "+place.getAddress()+" --------------");
+                communicator.setDestinationAddressToOrder(place.getAddress().toString());
                 communicator.respond(place.getLatLng());
             }
 
@@ -60,25 +60,16 @@ public class PlaceAutoCompleteFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
+                //Everything went well when using the Places Autocomplete search bar
                 Place place = PlaceAutocomplete.getPlace(getContext(), data);
                 Log.i(TAG, "Place: " + place.getName());
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                //There was an error when using the PlaceAutoComplete-searchbar
                 Status status = PlaceAutocomplete.getStatus(getContext(), data);
-
-                //Errormessage
-                //05-24 19:08:56.188 2356-2714/com.google.android.gms E/AsyncOperation: serviceID=65, operation=AddPlace
-                //OperationException[Status{statusCode=NETWORK_ERROR, resolution=null}]
-
-                //Found the answer...
-                // https://stackoverflow.com/questions/44118233/google-places-api-for-android-network-error
-
-                //Problem was gone the day after. I didnt change anything...
-
                 System.out.println(PlaceAutocomplete.getStatus(getContext(), data));
                 Log.i(TAG, status.getStatusMessage());
-
             } else if (resultCode == RESULT_CANCELED) {
-                // The user canceled the operation.
+                //User canceled operation
             }
         }
     }
