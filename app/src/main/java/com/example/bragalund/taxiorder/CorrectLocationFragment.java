@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 
-public class QuestionRouteFragment extends Fragment {
+public class CorrectLocationFragment extends Fragment {
 
     Button yesButton, noButton;
     Communicator communicator;
@@ -25,8 +25,8 @@ public class QuestionRouteFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        yesButton = (Button) getView().findViewById(R.id.yes_route_fragment_button);
-        noButton = (Button) getView().findViewById(R.id.no_route_fragment_button);
+        yesButton = (Button) getView().findViewById(R.id.yes_order_taxi_fragment_button);
+        noButton = (Button) getView().findViewById(R.id.no_order_taxi_fragment_button);
         yesButton.setOnClickListener(yesButtonOnClickListener);
         noButton.setOnClickListener(noButtonOnClickListener);
     }

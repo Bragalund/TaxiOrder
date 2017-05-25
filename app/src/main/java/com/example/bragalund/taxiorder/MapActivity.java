@@ -31,7 +31,7 @@ public class MapActivity extends Activity implements Communicator{
         mapFragment.removeDestinationMarker();
         mapFragment.addNewMarkerToMap(latLng);
         mapFragment.zoomOntoTwoMarkers();
-        changeTopFragment(new QuestionRouteFragment());
+        changeTopFragment(new CorrectLocationFragment());
     }
 
     @Override
