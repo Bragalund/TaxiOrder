@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/googleMapFragment"
         class="com.google.android.gms.maps.MapFragment"
-        tools:context=".MapActivity"
+        tools:context=".Activities.MapActivity"
         android:layout_width="wrap_content"
         android:layout_height="match_parent" />
 

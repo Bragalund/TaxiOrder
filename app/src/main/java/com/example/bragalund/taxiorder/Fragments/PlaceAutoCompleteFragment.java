@@ -1,4 +1,4 @@
-package com.example.bragalund.taxiorder;
+package com.example.bragalund.taxiorder.Fragments;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.bragalund.taxiorder.Util.Communicator;
+import com.example.bragalund.taxiorder.R;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
@@ -41,6 +43,7 @@ public class PlaceAutoCompleteFragment extends Fragment {
             @Override
             public void onPlaceSelected(Place place) {
                 Log.i(TAG, "Place Selected: " + place.getName() + "  " + place.getLatLng());
+                System.out.println("-------------------   onPlaceSelected --------------");
                 communicator.respond(place.getLatLng());
             }
 

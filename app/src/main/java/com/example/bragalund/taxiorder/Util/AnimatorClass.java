@@ -1,7 +1,7 @@
 
 
 
-package com.example.bragalund.taxiorder;
+package com.example.bragalund.taxiorder.Util;
 
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;

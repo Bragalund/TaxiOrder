@@ -1,10 +1,13 @@
-package com.example.bragalund.taxiorder;
+package com.example.bragalund.taxiorder.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.bragalund.taxiorder.R;
+import com.example.bragalund.taxiorder.Util.AnimatorClass;
 
 public class MainActivity extends AppCompatActivity {
 

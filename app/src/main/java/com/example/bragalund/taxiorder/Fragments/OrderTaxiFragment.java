@@ -1,4 +1,4 @@
-package com.example.bragalund.taxiorder;
+package com.example.bragalund.taxiorder.Fragments;
 
 
 import android.app.Fragment;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.bragalund.taxiorder.Util.Communicator;
+import com.example.bragalund.taxiorder.R;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 
 public class OrderTaxiFragment extends Fragment {
