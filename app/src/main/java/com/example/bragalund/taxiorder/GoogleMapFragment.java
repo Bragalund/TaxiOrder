@@ -76,15 +76,25 @@ public class GoogleMapFragment extends Fragment
         //Checks permissions one more time...
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             System.out.println("Permissions is good... ;) ");
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                    mGoogleApiClient);
+            if (mLastLocation != null) {
+                lat = mLastLocation.getLatitude();
+                lng = mLastLocation.getLongitude();
+            }
             LatLng loc = new LatLng(lat, lng);
             mMap.setMyLocationEnabled(true);
             mMap.addMarker(new MarkerOptions().position(loc).title("You are here!"));
             currentLocationMarker = mMap.addMarker(new MarkerOptions().position(loc).title("You are here!"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 12));
-            mMap.animateCamera(CameraUpdateFactory.zoomIn());
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
+            zoomCamera(loc);
         }
+    }
+
+    private void zoomCamera(LatLng loc) {
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 12));
+        mMap.animateCamera(CameraUpdateFactory.zoomIn());
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
     }
 
     @Override
@@ -128,13 +138,12 @@ public class GoogleMapFragment extends Fragment
                 lat = mLastLocation.getLatitude();
                 lng = mLastLocation.getLongitude();
                 LatLng loc = new LatLng(lat, lng);
+                zoomCamera(loc);
                 currentLocationMarker.remove();
                 currentLocationMarker = mMap.addMarker(new MarkerOptions().position(loc).title("You are here"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 12));
-                mMap.animateCamera(CameraUpdateFactory.zoomIn());
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
             }
+
+
         }
     }
 
@@ -169,7 +178,7 @@ public class GoogleMapFragment extends Fragment
         }
     }
 
-    public void zoomOntoTwoMarkers(){
+    public void zoomOntoTwoMarkers() {
         ArrayList<Marker> markers = new ArrayList<>();
         markers.add(currentLocationMarker);
         markers.add(destinationMarker);
