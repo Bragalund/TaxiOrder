@@ -8,13 +8,15 @@ public class Order implements Serializable {
     String destinationAddress;
     int hour;
     int min;
+    String customerPhoneNumber;
 
-    public Order(String orderID, String currentAddress, String destinationAddress, int hour, int min) {
+    public Order(String orderID, String currentAddress, String destinationAddress, int hour, int min, String customerPhoneNumber) {
         this.orderID = orderID;
         this.currentAddress = currentAddress;
         this.destinationAddress = destinationAddress;
         this.hour = hour;
         this.min = min;
+        this.customerPhoneNumber = customerPhoneNumber;
     }
 
     public String getOrderID() {
@@ -55,5 +57,13 @@ public class Order implements Serializable {
 
     public void setMin(int min) {
         this.min = min;
+    }
+
+    public String getCustomerPhoneNumber() {
+        return customerPhoneNumber;
+    }
+
+    public void setCustomerPhoneNumber(String customerPhoneNumber) {
+        this.customerPhoneNumber = customerPhoneNumber;
     }
 }
