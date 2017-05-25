@@ -17,7 +17,7 @@ public class MapActivity extends Activity implements Communicator{
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         //Loads the google maps-mMapFragment into the gmaps_fragment_container
-        transaction.replace(R.id.gmaps_fragment_container, new GoogleMapFragment()).commit();
+        transaction.replace(R.id.bottom_fragment_container, new GoogleMapFragment()).commit();
 
         transaction = fragmentManager.beginTransaction();
         //Loads the address form
@@ -26,7 +26,7 @@ public class MapActivity extends Activity implements Communicator{
 
     @Override
     public void respond(LatLng latLng) {
-        GoogleMapFragment mapFragment = (GoogleMapFragment) getFragmentManager().findFragmentById(R.id.gmaps_fragment_container);
+        GoogleMapFragment mapFragment = (GoogleMapFragment) getFragmentManager().findFragmentById(R.id.bottom_fragment_container);
         mapFragment.removeDestinationMarker();
         mapFragment.addNewMarkerToMap(latLng);
         mapFragment.zoomOntoTwoMarkers();
