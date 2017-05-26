@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/taxibackground"
     android:scaleType="centerCrop"
-    tools:context="com.example.bragalund.taxiorder.Activities.MainActivity"
+    tools:context="com.example.bragalund.taxiorder.Activities.StartScreenActivity"
     >
 
 

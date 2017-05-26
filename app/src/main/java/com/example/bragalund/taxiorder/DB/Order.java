@@ -2,6 +2,8 @@ package com.example.bragalund.taxiorder.DB;
 
 import java.io.Serializable;
 
+//This is just the mapping between the database and the Order-object
+
 public class Order implements Serializable {
     int orderID;
     String currentAddress;

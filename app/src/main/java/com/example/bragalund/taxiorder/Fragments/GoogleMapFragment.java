@@ -18,7 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.bragalund.taxiorder.Activities.MainActivity;
+import com.example.bragalund.taxiorder.Activities.StartScreenActivity;
 import com.example.bragalund.taxiorder.R;
 import com.example.bragalund.taxiorder.Util.Communicator;
 import com.google.android.gms.common.ConnectionResult;
@@ -128,7 +128,7 @@ public class GoogleMapFragment extends Fragment
 
                     System.out.println("The permission for fine_location was not granted... :( ");
 
-                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    Intent intent = new Intent(getContext(), StartScreenActivity.class);
                     startActivity(intent);
 
                 }

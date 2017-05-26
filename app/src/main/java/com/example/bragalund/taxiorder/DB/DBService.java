@@ -55,6 +55,7 @@ public class DBService extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    //Working
     public void insertOrderIntoDatabase(Order order) {
         database = this.getReadableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -66,18 +67,21 @@ public class DBService extends SQLiteOpenHelper {
         database.close();
     }
 
+    //not working or implemented
     public void updateOrderInDatabase() {
         database = this.getReadableDatabase();
         //database.update();
         database.close();
     }
 
+    //not implemented or working
     public void deleteOrder() {
         database = this.getReadableDatabase();
         //database.delete();
         database.close();
     }
 
+    //Maybe working, but not tested or used
     public ArrayList<Order> getAllOrders() {
         database = this.getReadableDatabase();
         Cursor cursor = database.query(TABLE_ORDER, null, null, null, null, null, null, null);

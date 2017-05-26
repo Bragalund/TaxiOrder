@@ -82,7 +82,7 @@ public class MapActivity extends Activity implements Communicator {
     }
 
     private void changeActivityToStartScreen() {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), StartScreenActivity.class);
         startActivity(intent);
     }
 

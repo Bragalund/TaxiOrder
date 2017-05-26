@@ -9,14 +9,14 @@ import android.widget.TextView;
 import com.example.bragalund.taxiorder.R;
 import com.example.bragalund.taxiorder.Util.AnimatorClass;
 
-public class MainActivity extends AppCompatActivity {
+public class StartScreenActivity extends AppCompatActivity {
 
     private TextView textview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_start_screen);
         initWidgets();
         doAnimation();
     }
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         animator.startAnimation();
     }
 
+    //Button covering the whole start-screen uses this method as onClick (next_intent_button in activity_start_screen.xml)
     public void startOrder(View v) {
         Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);

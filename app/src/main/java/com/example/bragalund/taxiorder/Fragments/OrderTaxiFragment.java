@@ -15,6 +15,7 @@ import com.example.bragalund.taxiorder.Util.Communicator;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 
 public class OrderTaxiFragment extends Fragment {
+
     Button yesButton, noButton;
     Communicator communicator;
 
@@ -27,6 +28,8 @@ public class OrderTaxiFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        //initializes buttons and sets listeners to them
         yesButton = (Button) getView().findViewById(R.id.yes_order_taxi_fragment_button);
         noButton = (Button) getView().findViewById(R.id.no_order_taxi_fragment_button);
         yesButton.setOnClickListener(yesButtonOnClickListener);
@@ -49,7 +52,7 @@ public class OrderTaxiFragment extends Fragment {
     };
 
 
-
+    //Initialises the Communicator-interface
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
