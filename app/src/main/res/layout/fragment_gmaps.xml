@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <fragment
-        android:id="@+id/googleMapFragment"
+        android:id="@+id/google_map_fragment"
         class="com.google.android.gms.maps.MapFragment"
         tools:context=".Activities.MapActivity"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
 </FrameLayout>

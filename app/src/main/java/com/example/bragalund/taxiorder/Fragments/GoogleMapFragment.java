@@ -42,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import static com.example.bragalund.taxiorder.R.id.googleMapFragment;
+import static com.example.bragalund.taxiorder.R.id.google_map_fragment;
 
 public class GoogleMapFragment extends Fragment
         implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -67,7 +67,7 @@ public class GoogleMapFragment extends Fragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         buildGoogleApiClient();
-        mMapFragment = (com.google.android.gms.maps.MapFragment) getChildFragmentManager().findFragmentById(googleMapFragment);
+        mMapFragment = (com.google.android.gms.maps.MapFragment) getChildFragmentManager().findFragmentById(google_map_fragment);
         mMapFragment.getMapAsync(this);
     }
 

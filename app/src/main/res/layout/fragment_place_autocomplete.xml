@@ -6,7 +6,7 @@
         android:id="@+id/place_autocomplete_fragment"
         class="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center" />
 
 </FrameLayout>

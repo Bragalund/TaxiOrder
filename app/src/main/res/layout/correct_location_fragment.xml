@@ -1,42 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/place_autocomplete_separator">
 
+    <Button
+        android:id="@+id/yes_correct_location_fragment_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/yes"
+        android:layout_alignBaseline="@+id/no_correct_location_fragment_button"
+        android:layout_alignBottom="@+id/no_correct_location_fragment_button"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="76dp" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/place_autocomplete_separator">
+    <Button
+        android:id="@+id/no_correct_location_fragment_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No"
+        android:layout_marginTop="26dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/yes_correct_location_fragment_button"
+        android:layout_marginStart="65dp" />
 
-        <TextView
-            android:id="@+id/question_fragment_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Correct location?"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="13dp" />
-
-        <Button
-            android:id="@+id/yes_correct_location_fragment_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Yes"
-            android:layout_marginTop="19dp"
-            android:layout_below="@+id/question_fragment_textView"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="61dp" />
-
-        <Button
-            android:id="@+id/no_correct_location_fragment_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="64dp"
-            android:text="No"
-            android:layout_alignBaseline="@+id/yes_correct_location_fragment_button"
-            android:layout_alignBottom="@+id/yes_correct_location_fragment_button"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-
-
-</FrameLayout>
+</RelativeLayout>

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">TaxiOrder</string>
     <string name="address_form_hint">Where do you want to go?</string>
+    <string name="yes">yes</string>
 </resources>

@@ -44,15 +44,23 @@ public class MapActivity extends Activity implements Communicator {
         mapFragment.removeDestinationMarker();
         mapFragment.addNewMarkerToMap(latLng);
         mapFragment.zoomOntoTwoMarkers();
-        changeTopFragment(new CorrectLocationFragment());
+        replaceSearchBarInPlacesFragment(new CorrectLocationFragment());
     }
-
 
     @Override
-    public void changeTopFragment(Fragment fragment) {
+    public void replaceSearchBarInPlacesFragment(Fragment fragment) {
         transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.top_fragment_container, fragment).commit();
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.place_autocomplete_fragment, fragment).commit();
+
     }
+
+    @Override
+    public void goBackStack() {
+        super.onBackPressed();
+    }
+
+
 
     @Override
     public void setDestinationAddressToOrder(String destinationAddress) {
@@ -83,10 +91,51 @@ public class MapActivity extends Activity implements Communicator {
     @Override
     public void changeBottomFragment(Fragment fragment) {
         transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.bottom_fragment_container, fragment).commit();
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.google_map_fragment, fragment).commit();
+
+    }
+
+    @Override
+    public void changeTopFragment(Fragment fragment) {
+        transaction = fragmentManager.beginTransaction();
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.place_autocomplete_fragment, fragment).commit();
+    }
+
+    @Override
+    public void setPlacesAndGoogleMapFragment() {
+        System.out.println("---------- entered setPlacesAndGoogleMapFragment() -----------------");
+        transaction = fragmentManager.beginTransaction();
+        //transaction.addToBackStack(null);
+       // GoogleMapFragment googleMapFragment = (GoogleMapFragment) fragmentManager.findFragmentById(R.id.google_map_fragment);
+        Fragment old = getFragmentManager().findFragmentById(R.id.bottom_fragment_container);
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.remove(old);
+        Fragment newInstance = recreateFragment(old);
+        ft.add(R.id.bottom_fragment_container, newInstance);
+        ft.commit();
+        //transaction.replace(R.id.google_map_fragment, )).commit();
+        System.out.println("----------- loaded gMap-fragment ----------------");
     }
 
     public Order getOrder(){
         return order;
+    }
+
+    private Fragment recreateFragment(Fragment f)
+    {
+        try {
+            Fragment.SavedState savedState = fragmentManager.saveFragmentInstanceState(f);
+
+            Fragment newInstance = f.getClass().newInstance();
+            newInstance.setInitialSavedState(savedState);
+
+            return newInstance;
+        }
+        catch (Exception e) // InstantiationException, IllegalAccessException
+        {
+            throw new RuntimeException("Cannot reinstantiate fragment " + f.getClass().getName(), e);
+        }
     }
 }

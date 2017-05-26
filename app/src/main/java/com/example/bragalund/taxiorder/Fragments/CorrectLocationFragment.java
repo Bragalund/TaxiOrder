@@ -9,9 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.bragalund.taxiorder.Util.Communicator;
 import com.example.bragalund.taxiorder.R;
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.example.bragalund.taxiorder.Util.Communicator;
 
 public class CorrectLocationFragment extends Fragment {
 
@@ -36,7 +35,7 @@ public class CorrectLocationFragment extends Fragment {
     View.OnClickListener noButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            communicator.changeTopFragment(new PlaceAutocompleteFragment());
+            communicator.goBackStack();
         }
     };
 

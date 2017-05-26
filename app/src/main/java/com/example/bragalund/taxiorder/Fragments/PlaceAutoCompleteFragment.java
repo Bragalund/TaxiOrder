@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.bragalund.taxiorder.Util.Communicator;
 import com.example.bragalund.taxiorder.R;
@@ -35,7 +36,7 @@ public class PlaceAutoCompleteFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+        final PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getChildFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -52,6 +53,16 @@ public class PlaceAutoCompleteFragment extends Fragment {
             public void onError(Status status) {
                 System.out.println("There was an error when the user pressed the place in the Places Autocomplete-bar");
                 Log.i(TAG, "An error occurred: " + status);
+            }
+        });
+
+        autocompleteFragment.getView().findViewById(R.id.place_autocomplete_clear_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("------------- pressed x button ----------");
+                communicator.changeTopFragment(autocompleteFragment);
+                System.out.println("----------- loaded autocompleteFragment -----------");
+                communicator.setPlacesAndGoogleMapFragment();
             }
         });
     }
