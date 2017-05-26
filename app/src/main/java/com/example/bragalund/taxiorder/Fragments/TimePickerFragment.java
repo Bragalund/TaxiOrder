@@ -36,7 +36,6 @@ public class TimePickerFragment extends Fragment {
                 min = minute;
             }
         });
-
     }
 
     public int getHour() {

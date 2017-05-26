@@ -36,7 +36,6 @@ public class OrderTaxiFragment extends Fragment {
     View.OnClickListener noButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            System.out.println("No button was clicked...");
             communicator.changeTopFragment(new PlaceAutocompleteFragment()); //Should get previous instance of Places AutocompleteFragment
             communicator.setGoogleMapFragment();
         }
@@ -45,7 +44,6 @@ public class OrderTaxiFragment extends Fragment {
     View.OnClickListener yesButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            System.out.println("Yes button was clicked...");
             communicator.orderTaxi();
         }
     };

@@ -52,7 +52,6 @@ public class MapActivity extends Activity implements Communicator {
         transaction = fragmentManager.beginTransaction();
         transaction.addToBackStack(null);
         transaction.replace(R.id.place_autocomplete_fragment, fragment).commit();
-
     }
 
     @Override
@@ -92,7 +91,6 @@ public class MapActivity extends Activity implements Communicator {
         transaction = fragmentManager.beginTransaction();
         transaction.addToBackStack(null);
         transaction.replace(R.id.google_map_fragment, fragment).commit();
-
     }
 
     @Override
@@ -104,30 +102,24 @@ public class MapActivity extends Activity implements Communicator {
 
     @Override
     public void setGoogleMapFragment() {
-        System.out.println("---------- entered setGoogleMapFragment() -----------------");
-        transaction = fragmentManager.beginTransaction();
-        //transaction.replace(R.id.bottom_fragment_container, getFragmentManager().findFragmentById(R.id.google_map_fragment));
 
+        //Wanted to do this (but it doesnt work, because of timepickerfragment is loaded in fragment):
         //GoogleMapFragment googleMapFragment = (GoogleMapFragment)  fragmentManager.findFragmentById(R.id.google_map_fragment);
         //transaction.replace(R.id.google_map_fragment, googleMapFragment.getmMap());
         //transaction.commit();
 
         //Recreates google-map-fragment (it is a workaround) and user have to get current location again.
         //TODO get same instance of google map when app starts without having error with renaming id of object...
-        Fragment old = getFragmentManager().findFragmentById(R.id.bottom_fragment_container);
+        Fragment old = fragmentManager.findFragmentById(R.id.bottom_fragment_container);
         FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.remove(old);
         Fragment newInstance = recreateFragment(old);
         ft.add(R.id.bottom_fragment_container, newInstance);
         ft.commit();
-
-        System.out.println("----------- loaded gMap-fragment ----------------");
     }
 
-    public Order getOrder() {
-        return order;
-    }
 
+    //Workaround method...
     private Fragment recreateFragment(Fragment f) {
         try {
             Fragment.SavedState savedState = fragmentManager.saveFragmentInstanceState(f);

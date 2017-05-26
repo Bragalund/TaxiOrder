@@ -24,7 +24,6 @@ import static com.google.android.gms.wearable.DataMap.TAG;
 public class PlaceAutoCompleteFragment extends Fragment {
 
 
-
     private PlaceAutocompleteFragment placeAutocompleteFragment;
     private static final int RESULT_CANCELED = 0;
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 0;
@@ -40,14 +39,13 @@ public class PlaceAutoCompleteFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         final PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getChildFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-
         setPlaceAutocompleteFragment(autocompleteFragment);
+
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
 
             @Override
             public void onPlaceSelected(Place place) {
                 Log.i(TAG, "Place Selected: " + place.getName() + "  " + place.getLatLng());
-                System.out.println("-------------------   Destination address is: "+place.getAddress()+" --------------");
                 communicator.setDestinationAddressToOrder(place.getAddress().toString());
                 communicator.respond(place.getLatLng());
             }
@@ -62,9 +60,7 @@ public class PlaceAutoCompleteFragment extends Fragment {
         autocompleteFragment.getView().findViewById(R.id.place_autocomplete_clear_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("------------- pressed x button ----------");
-                communicator.changeTopFragment(autocompleteFragment);  //This creates problems with
-                System.out.println("----------- loaded autocompleteFragment -----------");
+                communicator.changeTopFragment(autocompleteFragment);  //This creates nullpointer when trying to get text from
                 communicator.setGoogleMapFragment();
             }
         });
