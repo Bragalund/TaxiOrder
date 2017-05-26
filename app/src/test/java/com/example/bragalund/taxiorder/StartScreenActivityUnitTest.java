@@ -1,17 +1,23 @@
 package com.example.bragalund.taxiorder;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class StartScreenActivityUnitTest {
 
     @Before
-    public void setUp(){
+    public void setUp() {
+
+    }
+
+    @After
+    public void tearDown() {
 
     }
 
     @Test
-    public void startOrderTest(){
+    public void startOrderTest() {
 
     }
 }
