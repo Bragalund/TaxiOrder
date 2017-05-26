@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.example.bragalund.taxiorder.R;
 import com.example.bragalund.taxiorder.Util.Communicator;
 
-public class TimePickerFragment extends Fragment{
+public class TimePickerFragment extends Fragment {
 
     Communicator communicator;
 
@@ -21,6 +21,21 @@ public class TimePickerFragment extends Fragment{
         return inflater.inflate(R.layout.fragment_timepicker, container, false);
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
+
+    public int getCurrentHour() {
+        int currentHour = this.getCurrentHour();
+        return currentHour;
+    }
+
+    public int getCurrentMinute(){
+        int currentMinute = this.getCurrentMinute();
+        return currentMinute;
+    }
 
 
     @Override

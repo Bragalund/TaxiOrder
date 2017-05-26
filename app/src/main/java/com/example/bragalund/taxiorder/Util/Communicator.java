@@ -11,6 +11,5 @@ public interface Communicator {
     void changeTopFragment(Fragment fragment);
     void setDestinationAddressToOrder(String destinationAddress);
     void setCurrentAddressToOrder(String currentAddress);
-    void setHour(int hour);
-    void setMin(int min);
+    void orderTaxi();
 }

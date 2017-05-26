@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <TimePicker
         android:id="@+id/timePicker"
         android:layout_width="match_parent"
@@ -12,4 +13,5 @@
         android:numbersBackgroundColor="@color/common_google_signin_btn_text_light"
         android:numbersSelectorColor="@color/googleMapOrange"
         android:numbersTextColor="@color/googleMapMidDarkBlue" />
+
 </FrameLayout>
