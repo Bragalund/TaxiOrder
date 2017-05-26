@@ -14,5 +14,5 @@ public interface Communicator {
     void setCurrentAddressToOrder(String currentAddress);
     void orderTaxi();
     void goBackStack();
-    void setPlacesAndGoogleMapFragment();
+    void setGoogleMapFragment();
 }

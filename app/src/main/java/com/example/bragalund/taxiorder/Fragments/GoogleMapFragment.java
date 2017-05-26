@@ -74,6 +74,7 @@ public class GoogleMapFragment extends Fragment
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
         //checks permissions...
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             setUpMap();
@@ -254,6 +255,14 @@ public class GoogleMapFragment extends Fragment
 
         System.out.println("-------- Current Address is: "+guessedAddress+ " ---------------");
         communicator.setCurrentAddressToOrder(guessedAddress);
+    }
+
+    public GoogleMap getmMap() {
+        return mMap;
+    }
+
+    public void setmMap(GoogleMap mMap) {
+        this.mMap = mMap;
     }
 
     @Override

@@ -37,8 +37,8 @@ public class OrderTaxiFragment extends Fragment {
         @Override
         public void onClick(View v) {
             System.out.println("No button was clicked...");
-            communicator.changeTopFragment(new PlaceAutocompleteFragment());
-            communicator.changeBottomFragment(new GoogleMapFragment());
+            communicator.changeTopFragment(new PlaceAutocompleteFragment()); //Should get previous instance of Places AutocompleteFragment
+            communicator.setGoogleMapFragment();
         }
     };
 

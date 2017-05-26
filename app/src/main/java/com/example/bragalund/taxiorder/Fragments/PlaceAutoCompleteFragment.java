@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.bragalund.taxiorder.Util.Communicator;
 import com.example.bragalund.taxiorder.R;
@@ -24,6 +23,9 @@ import static com.google.android.gms.wearable.DataMap.TAG;
 
 public class PlaceAutoCompleteFragment extends Fragment {
 
+
+
+    private PlaceAutocompleteFragment placeAutocompleteFragment;
     private static final int RESULT_CANCELED = 0;
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 0;
     Communicator communicator;
@@ -39,6 +41,7 @@ public class PlaceAutoCompleteFragment extends Fragment {
         final PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getChildFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
+        setPlaceAutocompleteFragment(autocompleteFragment);
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
 
             @Override
@@ -60,9 +63,9 @@ public class PlaceAutoCompleteFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 System.out.println("------------- pressed x button ----------");
-                communicator.changeTopFragment(autocompleteFragment);
+                communicator.changeTopFragment(autocompleteFragment);  //This creates problems with
                 System.out.println("----------- loaded autocompleteFragment -----------");
-                communicator.setPlacesAndGoogleMapFragment();
+                communicator.setGoogleMapFragment();
             }
         });
     }
@@ -85,6 +88,13 @@ public class PlaceAutoCompleteFragment extends Fragment {
         }
     }
 
+    public PlaceAutocompleteFragment getPlaceAutocompleteFragment() {
+        return placeAutocompleteFragment;
+    }
+
+    public void setPlaceAutocompleteFragment(PlaceAutocompleteFragment placeAutocompleteFragment) {
+        this.placeAutocompleteFragment = placeAutocompleteFragment;
+    }
 
     @Override
     public void onAttach(Context context) {

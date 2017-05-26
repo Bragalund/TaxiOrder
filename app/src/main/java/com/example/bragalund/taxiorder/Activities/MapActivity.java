@@ -61,7 +61,6 @@ public class MapActivity extends Activity implements Communicator {
     }
 
 
-
     @Override
     public void setDestinationAddressToOrder(String destinationAddress) {
         order.setDestinationAddress(destinationAddress);
@@ -74,16 +73,16 @@ public class MapActivity extends Activity implements Communicator {
 
     @Override
     public void orderTaxi() {
-        TimePickerFragment timePickerFragment = (TimePickerFragment) getFragmentManager().findFragmentById(R.id.bottom_fragment_container);
-        //order.setHour(timePickerFragment.getCurrentHour());
-        //order.setMin(timePickerFragment.getCurrentMinute());
+        TimePickerFragment timePickerFragment = (TimePickerFragment) getFragmentManager().findFragmentById(R.id.google_map_fragment);
+        order.setHour(timePickerFragment.getHour());
+        order.setMin(timePickerFragment.getMin());
         DBService dbService = new DBService(getApplicationContext(), DBService.DB_NAME, null, DBService.DATABASE_VERSION);
         dbService.insertOrderIntoDatabase(order);
         Toast.makeText(getApplicationContext(), "Your taxi has been ordered.", Toast.LENGTH_LONG).show();
         changeActivityToStartScreen();
     }
 
-    private void changeActivityToStartScreen(){
+    private void changeActivityToStartScreen() {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
@@ -104,27 +103,32 @@ public class MapActivity extends Activity implements Communicator {
     }
 
     @Override
-    public void setPlacesAndGoogleMapFragment() {
-        System.out.println("---------- entered setPlacesAndGoogleMapFragment() -----------------");
+    public void setGoogleMapFragment() {
+        System.out.println("---------- entered setGoogleMapFragment() -----------------");
         transaction = fragmentManager.beginTransaction();
-        //transaction.addToBackStack(null);
-       // GoogleMapFragment googleMapFragment = (GoogleMapFragment) fragmentManager.findFragmentById(R.id.google_map_fragment);
+        //transaction.replace(R.id.bottom_fragment_container, getFragmentManager().findFragmentById(R.id.google_map_fragment));
+
+        //GoogleMapFragment googleMapFragment = (GoogleMapFragment)  fragmentManager.findFragmentById(R.id.google_map_fragment);
+        //transaction.replace(R.id.google_map_fragment, googleMapFragment.getmMap());
+        //transaction.commit();
+
+        //Recreates google-map-fragment (it is a workaround) and user have to get current location again.
+        //TODO get same instance of google map when app starts without having error with renaming id of object...
         Fragment old = getFragmentManager().findFragmentById(R.id.bottom_fragment_container);
         FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.remove(old);
         Fragment newInstance = recreateFragment(old);
         ft.add(R.id.bottom_fragment_container, newInstance);
         ft.commit();
-        //transaction.replace(R.id.google_map_fragment, )).commit();
+
         System.out.println("----------- loaded gMap-fragment ----------------");
     }
 
-    public Order getOrder(){
+    public Order getOrder() {
         return order;
     }
 
-    private Fragment recreateFragment(Fragment f)
-    {
+    private Fragment recreateFragment(Fragment f) {
         try {
             Fragment.SavedState savedState = fragmentManager.saveFragmentInstanceState(f);
 
@@ -132,8 +136,7 @@ public class MapActivity extends Activity implements Communicator {
             newInstance.setInitialSavedState(savedState);
 
             return newInstance;
-        }
-        catch (Exception e) // InstantiationException, IllegalAccessException
+        } catch (Exception e) // InstantiationException, IllegalAccessException
         {
             throw new RuntimeException("Cannot reinstantiate fragment " + f.getClass().getName(), e);
         }
