@@ -2,12 +2,11 @@ package com.example.bragalund.taxiorder;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-/**
- * Created by bragalund on 27.05.17.
- */
 @RunWith(MockitoJUnitRunner.class)
 public class MapActivityTest {
     @Before
@@ -17,6 +16,11 @@ public class MapActivityTest {
 
     @After
     public void tearDown(){
+
+    }
+
+    @Test @Ignore
+    public void changeActivityToStartScreen(){
 
     }
 
