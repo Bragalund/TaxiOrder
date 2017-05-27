@@ -18,7 +18,7 @@ public class StartScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_screen);
         initWidgets();
-        doAnimation();
+        //doAnimation(); // <------ comment out this method to do integrationtests in StartScreenActivityIntrumentedTest.class
     }
 
     private void initWidgets() {
