@@ -5,16 +5,20 @@ import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
+/**
+ * Created by bragalund on 27.05.17.
+ */
 @RunWith(MockitoJUnitRunner.class)
-public class OrderTaxiFragmentUnitTest {
-
+public class MapActivityTest {
     @Before
-    public void setUp() {
+    public void setUp(){
 
     }
 
     @After
-    public void tearDown() {
+    public void tearDown(){
 
     }
+
+
 }
