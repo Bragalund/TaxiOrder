@@ -6,9 +6,8 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
-import com.example.bragalund.taxiorder.DB.DBService;
+import com.example.bragalund.taxiorder.AsyncTasks.OrderTaxiTask;
 import com.example.bragalund.taxiorder.DB.Order;
 import com.example.bragalund.taxiorder.Fragments.CorrectLocationFragment;
 import com.example.bragalund.taxiorder.Fragments.GoogleMapFragment;
@@ -75,9 +74,12 @@ public class MapActivity extends Activity implements Communicator {
         TimePickerFragment timePickerFragment = (TimePickerFragment) getFragmentManager().findFragmentById(R.id.google_map_fragment);
         order.setHour(timePickerFragment.getHour());
         order.setMin(timePickerFragment.getMin());
-        DBService dbService = new DBService(getApplicationContext(), DBService.DB_NAME, null, DBService.DATABASE_VERSION);
-        dbService.insertOrderIntoDatabase(order);
-        Toast.makeText(getApplicationContext(), "Your taxi has been ordered.", Toast.LENGTH_LONG).show();
+
+        //Async task
+        OrderTaxiTask orderTaxiTask = new OrderTaxiTask(this);
+        orderTaxiTask.execute(order);
+
+        //Changes back to startscreen
         changeActivityToStartScreen();
     }
 
